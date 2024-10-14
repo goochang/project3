@@ -1,8 +1,6 @@
 import pandas as pd
 
 df_excel = pd.read_excel('test.xlsx')
-df = pd.DataFrame(df_excel.head())
-pop_kor = pd.read_csv('pop_kor.csv')
 
 city_df = pd.DataFrame({
     '서대문서': ['서대문구'], '수서서': ['강남구'], '강서서': ['강서구'], '서초서': ['서초구'], '서부서': ['은평구'], 
@@ -35,6 +33,7 @@ pivot = pd.pivot_table(
             '강간검거율', '강도검거율', '살인검거율', '절도검거율', '폭력검거율', '검거율'],
     aggfunc='mean' 
 )
+pop_kor = pd.read_csv('pop_kor.csv')
 pop_pivot = pop_kor.set_index('구별').join(pivot)
 pop_pivot = pop_pivot.reindex(columns=['강간(발생)', '강도(발생)', '살인(발생)', '절도(발생)', '폭력(발생)', '강간검거율', '강도검거율', '살인검거율', '절도검거율'	,'폭력검거율' ,'검거율', '인구수'])
 pop_pivot = pop_pivot.rename(columns={'강간(발생)':'강간', '강도(발생)':'강도', '살인(발생)':'살인', '절도(발생)':'절도', '폭력(발생)':'폭력'}) 
